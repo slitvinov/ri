@@ -4,9 +4,14 @@
 h=$1; shift
 d=$1; shift
 
+Exch=1; if test "$1" = -; then Exch=1; shift; fi
+
 t=ro.$$.tar                       # tape
 r=`git rev-parse --show-toplevel` # root directory
+if test $? != 0; then exit $?; fi
+
 p=`git rev-parse --show-prefix`   # prefix relative to the root
+trap 'rm -f $t' 0 1 2 3 15
 
 pack () (
     cd "$r"
@@ -16,18 +21,23 @@ pack () (
 
 send () {
     ssh "$h" mkdir -p -- \"$d\"
+    if test $? != 0; then exit $?; fi
     (exec rsync /tmp/$t "$h":\""$d"\"/$t)
 }
 
 unpack() {
-    ssh "$h" cd \"$d\"   '&&'   tar xf $t   '&&'   rm -f -- $t
+    ssh "$h" cd \"$d\"   '&&'   tar xf $t   '&&'   rm -f $t
 }
 
 run() {
-    ssh "$h" cd \"$d\"   '&&'   cd \"$p\"   '&&'   exec "$@"
+    ssh "$h" cd \"$d\"   '&&'   cd \"$p\"   '&&'   "$@"
 }
 
-pack
-send
-unpack
+exch () {
+    pack
+    send
+    unpack
+}
+
+if test $Exch = 1; then exch; fi
 run "$@"
