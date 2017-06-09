@@ -1,3 +1,33 @@
 #!/bin/bash
 
 # generic version
+h=$1; shift
+d=$1; shift
+
+t=ro.$$.tar                       # tape
+r=`git rev-parse --show-toplevel` # root directory
+p=`git rev-parse --show-prefix`   # prefix relative to the root
+
+pack () (
+    cd "$r"
+    t=/tmp/$t
+    git ls-files --full-name -z | xargs -0 tar uf $t
+)
+
+send () {
+    ssh "$h" mkdir -p -- \"$d\"
+    (exec rsync /tmp/$t "$h":\""$d"\"/$t)
+}
+
+unpack() {
+    ssh "$h" cd \"$d\"   '&&'   tar xf $t   '&&'   rm -f -- $t
+}
+
+run() {
+    ssh "$h" cd \"$d\"   '&&'   cd \"$p\"   '&&'   exec "$@"
+}
+
+pack
+send
+unpack
+run "$@"

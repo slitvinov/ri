@@ -1,3 +1,4 @@
 #!/bin/bash
 
-# specialized version for CSE
+d=$1; shift
+r0 daint '$SCRATCH'/"$d" "$@"
