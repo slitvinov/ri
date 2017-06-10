@@ -1,6 +1,6 @@
 #!/bin/bash
 
- # host, dir, code
+# host, dir, code
 h=$1; shift
 d=$1; shift
 c=$1
