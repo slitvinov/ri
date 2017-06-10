@@ -111,16 +111,16 @@ fi
 # ) > git.out.txt
 #
 
-# cTEST: r0.9
+# TEST: r0.9
 # t=/tmp/r0.$$
 # :
 # r0 falcon $t ^
 # r0 falcon $t ! ls Makefile > r0.out.txt
 #
 
-# sTEST: r0.10
-# t=/tmp/r0.$$
+# TEST: r0.10
+# t=/tmp/$$/r0
 # :
 # r0 falcon $t ^
-# (cd /tmp; r0 falcon $t vv    > r0.out.txt
+# (cd /tmp; r0 falcon $t vv; cd r0 ; ls Makefile)  > r0.out.txt
 #
