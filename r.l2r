@@ -5,6 +5,7 @@
 # [h]ost; remote [d]ir
 h=$1; shift
 d=$1; shift
+ask_git
 
 pre_pack() {
     cd "$r"

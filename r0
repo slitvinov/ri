@@ -46,10 +46,9 @@ fi
 # ) > git.out.txt
 #
 
-# sTEST: r0.5
+# TEST: r0.5
 # h=falcon
 # t=r0.$$; d=/tmp/$t; mkdir $d;
-# echo $d > /dev/stderr
 # (
 #   cd $d
 #   git init --quiet .
