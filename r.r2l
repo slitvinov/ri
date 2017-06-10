@@ -5,29 +5,33 @@
 # [h]ost; remote [d]ir
 h=$1; shift
 d=$1; shift
-All=0;  if test "$1" = ^^; then  All=1; shift; fi
+All=0;  if test "$1" = vv; then  All=1; shift; fi
 
-send_ini () {
-    ssh "$h" mkdir -p -- \""$d"\"
-    cd "$r"
+minus () { comm -23 "$1" "$2"; } # lines in $1 minus lines in $2
+cmd   () { ssh "$h" cd \""$d"\" '&&' "$@"; } # remote command from `$r'
+
+pack_ini() {
+    lall=/tmp/$$.all lgit=/tmp/$$.git lnew=/tmp/$$.new # file lists
+    trap 'rm -f $lall $lgit $lnew' 0 1 2 3 15
 }
 
 pack () {
-    t=/tmp/ri.$$.list                       # "tape" : file list
-    trap 'rm -f $t' 0 1 2 3 15
-    git ls-files > $t
+    cd "$r"
+    pack_ini
+    git ls-files                            | sort > $lgit
+    cmd find . -type f | sed 's,^[.][/],,g' | sort > $lall
+    minus $lall $lgit                              > $lnew
 }
 
-send_git () (
-    send_ini
+send_nogit () (
     pack
-    rsync --files-from=$t .  "$h":\""$d"\"
+    rsync --files-from=$lnew "$h":\""$d"\"    .
 )
 
 send_all () (
-    send_ini
-    rsync -r              .  "$h":\""$d"\"
+    b=`basename "$d"`
+    rsync -r                 "$h":\""$d"\"/   "$b"
 )
 
 ask_git # sets `r'
-if test $All = 1; then send_all; else send_git; fi
+if test $All = 1; then send_all; else send_nogit; fi
