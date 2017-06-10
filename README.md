@@ -18,21 +18,22 @@ l2r: local to remote, r2l: remote to local
 ## Examples
 copy all files "under git" to `daint:$SCRATCH/preved`
 
-	r ^ preved
+	r preved ^
 
-copy files and execute command
+copy and execute command
 
-	r ^ preved echo 42
+	r preved ^ echo 42
 
 run command remotely. No copying
 
 	r preved pwd
 
-run another command
+run more commands
 
-	r preved 'ls Makef*'
+	r preved ls
+	r preved 'cd $HOME' ';' 'ls'
 
-copy all files
+copy all files in git root directory
 
 	r preved ^^
 
@@ -40,7 +41,7 @@ copy "not git" files back
 
 	r preved v
 
-create directory `preved` and copy all remote files in
+create directory `preved` and copy all remote files back
 
 	r preved vv
 
