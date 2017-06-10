@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# ri: hostname dispatch
+
+# dain123 -> daint
+# rest    -> local
+
+awk '
+BEGIN {
+    h = ARGV[1]
+    if (h ~ /^daint/)  print "daint"
+    else               print "local"
+}
+' "`hostname`"
