@@ -39,5 +39,5 @@ exch () {
     unpack
 }
 
-if test $Exch = 1; then exch; fi
-run "$@"
+if test $Exch = 1; then exch     ; fi
+if test $#   != 0; then  run "$@"; fi
