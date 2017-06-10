@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# ri : delete remote directory
+err () { printf 'r.rm: %s\n' "$*"; exit 1; }
+
+# host, directory
+h=$1; shift
+if test $# == 0 -o -z "$1"; then err directory is not set; fi
+d=$1; shift
+
+ssh "$h" test -d \""$d"\" '&&' rm -rf -- \""$d"\"
