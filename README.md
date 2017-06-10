@@ -16,7 +16,7 @@ Usage:
 	r [path] === r0 daint $SCRTCH/[path]
 
 ### code
-l2r: local to remote, r2l: remote to local
+l2r: copy local to remote, r2l: copy remote to local
 
 * `^`  l2r "git"
 * `^^` l2r all
