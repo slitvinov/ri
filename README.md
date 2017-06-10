@@ -2,6 +2,15 @@
 
 ## Introduction
 
+Usage:
+
+    r0 [host] [path] [code] [commands]...
+	r         [path] [code] [commands]...
+
+`r` is a wrapper for `r0`:
+
+	r [path] === r0 daint $SCRTCH/[path]
+
 ### code
 l2r: local to remote, r2l: remote to local
 
@@ -13,7 +22,7 @@ l2r: local to remote, r2l: remote to local
 * `-`  delete remote directory
 
 * `!`        run remote command
-* `[other]`  run remote command
+* `anything` run remote command
 
 ## Examples
 copy all files "under git" to `daint:$SCRATCH/preved`
