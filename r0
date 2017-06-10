@@ -1,13 +1,63 @@
 #!/bin/bash
 
-r.l2r "$@"
+ # host, dir, code
+h=$1; shift
+d=$1; shift
+c=$1
+
+l2r  () {  r.l2r "$h" "$d" "$c" "$@"; }
+cmd0 () {  r.cmd "$h" "$d"      "$@"; }
+cmd  () { if test $# != 0; then cmd0 "$@"; fi }
+
+if   test "$c" = ^ ; then shift; l2r "$@"; cmd "$@"
+elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
+else                                       cmd "$@"
+fi
 
 # TEST: r0.1
-# r0 daint '$SCRATCH/r0/t1'
+# r0 daint '$SCRATCH/r0/t1' ^
 # ssh daint ls -d '$SCRATCH/r0/t1'  > r0.out.txt
 #
 
 # TEST: r0.2
-# r0 daint '$SCRATCH/r0/t1' - hostname   \
+# r0 daint '$SCRATCH/r0/t1' hostname   \
 #   | awk '/^daint/{print "OK"}' > r0.out.txt
+
+# TEST: r0.3
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d;
+# (
+#   cd $d
+#   git init --quiet .
+#   echo 42 > A
+#   git add A
+#   r0 falcon /tmp/$t ^ 'ls -a; cat A'
+# ) > git.out.txt
+
+# TEST: r0.4
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d;
+# (
+#   cd $d
+#   git init --quiet .
+#   echo 42 > A
+#   git add A
+#   r0 falcon /tmp/$t ^^ 'ls -a; cat A'
+# ) > git.out.txt
+#
+
+# sTEST: r0.5
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d;
+# echo $d > /dev/stderr
+# (
+#   cd $d
+#   git init --quiet .
+#   mkdir d
+#   echo 42 > A
+#   echo 52 > d/A
+#   git add A d/A
+#   cd d
+#   r0 falcon /tmp/$t ^ 'ls -a; cat A ../A'
+# ) > git.out.txt
 #
