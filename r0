@@ -6,24 +6,27 @@ d=$1; shift
 c=$1
 
 l2r  () {  r.l2r "$h" "$d" "$c" "$@"; }
+r2l  () {  r.r2l "$h" "$d" "$c" "$@"; }
 cmd0 () {  r.cmd "$h" "$d"      "$@"; }
 cmd  () { if test $# != 0; then cmd0 "$@"; fi }
 
 if   test "$c" = ^ ; then shift; l2r "$@"; cmd "$@"
 elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
+elif test "$c" =  v; then shift; r2l "$@"; cmd "$@"
+elif test "$c" = vv; then shift; r2l "$@"; cmd "$@"
 else                                       cmd "$@"
 fi
 
-# sTEST: r0.1
+# TEST: r0.1
 # r0 daint '$SCRATCH/r0/t1' ^
 # ssh daint ls -d '$SCRATCH/r0/t1'  > r0.out.txt
 #
 
-# sTEST: r0.2
+# TEST: r0.2
 # r0 daint '$SCRATCH/r0/t1' hostname   \
 #   | awk '/^daint/{print "OK"}' > r0.out.txt
 
-# sTEST: r0.3
+# TEST: r0.3
 # h=falcon
 # t=r0.$$; d=/tmp/$t; mkdir $d;
 # (
@@ -46,7 +49,7 @@ fi
 # ) > git.out.txt
 #
 
-# sTEST: r0.5
+# TEST: r0.5
 # h=falcon
 # t=r0.$$; d=/tmp/$t; mkdir $d;
 # (
