@@ -14,16 +14,16 @@ elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
 else                                       cmd "$@"
 fi
 
-# TEST: r0.1
+# sTEST: r0.1
 # r0 daint '$SCRATCH/r0/t1' ^
 # ssh daint ls -d '$SCRATCH/r0/t1'  > r0.out.txt
 #
 
-# TEST: r0.2
+# sTEST: r0.2
 # r0 daint '$SCRATCH/r0/t1' hostname   \
 #   | awk '/^daint/{print "OK"}' > r0.out.txt
 
-# TEST: r0.3
+# sTEST: r0.3
 # h=falcon
 # t=r0.$$; d=/tmp/$t; mkdir $d;
 # (
@@ -46,7 +46,7 @@ fi
 # ) > git.out.txt
 #
 
-# TEST: r0.5
+# sTEST: r0.5
 # h=falcon
 # t=r0.$$; d=/tmp/$t; mkdir $d;
 # (
