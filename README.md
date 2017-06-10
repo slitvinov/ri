@@ -2,6 +2,10 @@
 
 ## Introduction
 
+Copy files "under git/not under git" back and forward between "local"
+and "remote". Run commands remotely in the same relative directory as
+locally.
+
 Usage:
 
     r0 [host] [path] [code] [commands]...
