@@ -33,10 +33,6 @@ unpack() {
     ssh "$h" cd \"$d\"   '&&'   tar xf $t   '&&'   rm -f $t
 }
 
-run() {
-    ssh "$h" cd \"$d\"   '&&'   cd \"$p\"   '&&'   "$@"
-}
-
 exch () {
     if test $All = 1; then pack_all; else pack_git; fi
     send
@@ -47,7 +43,5 @@ t=ro.$$.tar                       # tape
 trap 'rm -f $t' 0 1 2 3 15
 ask_git
 
-if test $Exch = 1; then exch     ; fi
-if test $#   != 0; then  run "$@"; fi
-
-
+if test $Exch = 1; then  exch               ; fi
+if test $#   != 0; then r.cmd "$h" "$d" "$@"; fi
