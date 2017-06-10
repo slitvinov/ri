@@ -11,13 +11,17 @@ copy files and execute command
 
 	r preved echo 42
 
-run simple command on daint. Minus means `-` no copying
+run simple command on daint. `-` means no copying
 
 	r preved - pwd
 
 run anoter command on daint
 
 	r preved - 'ls Makef*'
+
+`+` means copy all files
+
+	r preved +
 
 ## Install
 
