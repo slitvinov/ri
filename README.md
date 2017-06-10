@@ -67,3 +67,7 @@ delete remote directory `preved`
 ## Install
 
 	make install
+
+## Notes
+
+Uses `rsync` to copy files.
