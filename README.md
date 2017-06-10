@@ -12,6 +12,9 @@ l2r: local to remote, r2l: remote to local
 * `vv` r2l all and create local directory
 * `-`  delete remote directory
 
+* `!`        run remote command
+* `[other]`  run remote command
+
 ## Examples
 copy all files "under git" to `daint:$SCRATCH/preved`
 
