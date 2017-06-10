@@ -22,7 +22,7 @@ fi
 
 # TEST: r0.1
 # r0 daint '$SCRATCH/r0/t1' ^
-# ssh daint ls -d '$SCRATCH/r0/t1'  > r0.out.txt
+# ssh daint ls -d '$SCRATCH/r0/t1' | xargs basename  > r0.out.txt
 #
 
 # TEST: r0.2
