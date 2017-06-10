@@ -15,15 +15,5 @@ i0 () {
 	   gsub(/HOST/, h, f)
 	   print f
        }
-    ' "`dhost`" "$1"
-}
-
-dhost () { # dispatch hostname
-    awk '
-       BEGIN {
-	   h = ARGV[1]
-	   if (h ~ /^daint/)  print "daint"
-	   else               print "local"
-       }
-    ' "`hostname`"
+    ' "`h0`" "$1"
 }
