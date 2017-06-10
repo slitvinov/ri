@@ -29,6 +29,8 @@ l2r: local to remote, r2l: remote to local
 * `anything` run remote command
 
 ## Examples
+You should be in the directory "under" git root.
+
 copy all files "under git" to `daint:$SCRATCH/preved`
 
 	r preved ^
