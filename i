@@ -3,7 +3,7 @@
 i ()  { #
           # in shell script
 	  # . i
-          # i HOST.file
+          # i file.HOST
           #   source `daint.file' on daint and `local.file' on anything else
     . `i0 "$1"`
 }

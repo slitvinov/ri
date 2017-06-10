@@ -35,14 +35,18 @@ run another command
 copy all files
 
 	r preved ^^
-	
+
 copy "not git" files back
 
 	r preved v
-	
+
 create directory `preved` and copy all remote files in
 
 	r preved vv
+
+delete remote directory `preved`
+
+	r preved -
 
 ## Install
 
