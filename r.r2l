@@ -16,6 +16,7 @@ pack_ini() {
 }
 
 pack () {
+    ask_git # sets `r'
     cd "$r"
     pack_ini
     git ls-files                            | sort > $lgit
@@ -33,5 +34,4 @@ send_all () (
     rsync -r                 "$h":\""$d"\"/   "$b"
 )
 
-ask_git # sets `r'
 if test $All = 1; then send_all; else send_nogit; fi
