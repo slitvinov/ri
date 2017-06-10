@@ -12,8 +12,8 @@ cmd  () { if test $# != 0; then cmd0 "$@"; fi }
 
 if   test "$c" = ^ ; then shift; l2r "$@"; cmd "$@"
 elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
-elif test "$c" =  v; then shift; r2l "$@"; cmd "$@"
-elif test "$c" = vv; then shift; r2l "$@"; cmd "$@"
+elif test "$c" =  v; then shift; cmd "$@"; r2l "$@"
+elif test "$c" = vv; then shift; cmd "$@"; r2l "$@"
 else                                       cmd "$@"
 fi
 
@@ -28,7 +28,7 @@ fi
 
 # TEST: r0.3
 # h=falcon
-# t=r0.$$; d=/tmp/$t; mkdir $d;
+# t=r0.$$; d=/tmp/$t; mkdir $d
 # (
 #   cd $d
 #   git init --quiet .
@@ -39,7 +39,7 @@ fi
 
 # TEST: r0.4
 # h=falcon
-# t=r0.$$; d=/tmp/$t; mkdir $d;
+# t=r0.$$; d=/tmp/$t; mkdir $d
 # (
 #   cd $d
 #   git init --quiet .
@@ -51,7 +51,7 @@ fi
 
 # TEST: r0.5
 # h=falcon
-# t=r0.$$; d=/tmp/$t; mkdir $d;
+# t=r0.$$; d=/tmp/$t; mkdir $d
 # (
 #   cd $d
 #   git init --quiet .
@@ -61,5 +61,50 @@ fi
 #   git add A d/A
 #   cd d
 #   r0 falcon /tmp/$t ^ 'ls -a; cat A ../A'
+# ) > git.out.txt
+#
+
+# TEST: r0.6
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d
+# (
+#   cd $d
+#   git init --quiet .
+#   echo 42 > A
+#   git add A
+#   r0 falcon /tmp/$t ^ echo 52 '>' B
+#   r0 falcon /tmp/$t v
+#   cat B
+# ) > git.out.txt
+#
+
+# TEST: r0.7
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d
+# (
+#   cd $d
+#   git init --quiet .
+#   echo oldA > A
+#   git add A
+#   r0 falcon /tmp/$t ^ echo 52 '>' B
+#   echo newA > A
+#   r0 falcon /tmp/$t v
+#   cat A
+# ) > git.out.txt
+#
+
+
+# TEST: r0.8
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d
+# (
+#   cd $d
+#   git init --quiet .
+#   echo oldA > A
+#   git add A
+#   r0 falcon /tmp/$t ^
+#   echo newA > A
+#   r0 falcon /tmp/$t v  echo 52 '>' B
+#   cat A B
 # ) > git.out.txt
 #
