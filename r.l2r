@@ -1,0 +1,53 @@
+# ri: local to remote : l2r
+
+. r.u # utils
+
+# [h]ost; remote [d]ir
+h=$1; shift
+d=$1; shift
+Exch=1; if test "$1" = -; then Exch=0; shift; fi
+All=0;  if test "$1" = +; then  All=1; shift; fi
+
+pre_pack() {
+    cd "$r"
+    t=/tmp/$t
+}
+
+pack_git () (
+    pre_pack
+    git ls-files --full-name -z | xargs -0 tar uf $t
+)
+
+pack_all () (
+    pre_pack
+    tar uf $t .
+)
+
+send () {
+    ssh "$h" mkdir -p -- \"$d\"
+    if test $? != 0; then exit $?; fi
+    (exec rsync /tmp/$t "$h":\""$d"\"/$t)
+}
+
+unpack() {
+    ssh "$h" cd \"$d\"   '&&'   tar xf $t   '&&'   rm -f $t
+}
+
+run() {
+    ssh "$h" cd \"$d\"   '&&'   cd \"$p\"   '&&'   "$@"
+}
+
+exch () {
+    if test $All = 1; then pack_all; else pack_git; fi
+    send
+    unpack
+}
+
+t=ro.$$.tar                       # tape
+trap 'rm -f $t' 0 1 2 3 15
+ask_git
+
+if test $Exch = 1; then exch     ; fi
+if test $#   != 0; then  run "$@"; fi
+
+

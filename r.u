@@ -1,0 +1,6 @@
+# ri utils
+
+ask_git () { # sets `r' and `p'
+    r=`git rev-parse --show-toplevel` # root directory
+    p=`git rev-parse --show-prefix`   # prefix relative to the root
+}
