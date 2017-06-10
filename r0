@@ -112,6 +112,6 @@ fi
 #
 
 # TEST: r0.9
-# r0 falcon '/tmp/r0/t1' ^
-# r0 falcon '/tmp/r0/t1' ! pwd  > r0.out.txt
+# r0 falcon /tmp/r0/t1 ^
+# r0 falcon /tmp/r0/t1 ! pwd  > r0.out.txt
 #
