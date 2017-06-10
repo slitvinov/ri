@@ -14,6 +14,7 @@ if   test "$c" = ^ ; then shift; l2r "$@"; cmd "$@"
 elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
 elif test "$c" =  v; then shift; cmd "$@"; r2l "$@"
 elif test "$c" = vv; then shift; cmd "$@"; r2l "$@"
+elif test "$c" =  !; then shift; cmd "$@"
 else                                       cmd "$@"
 fi
 
