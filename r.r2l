@@ -26,9 +26,11 @@ pack () {
     ask_git # sets `r'
     cd "$r"
     tape_ini
-    ls_git                        | sort > $lgit
+    ls_git                         | sort > $lgit
     ls_remote | sed 's,^[.][/],,g' | sort > $lall
-    minus $lall $lgit                              > $lnew
+    minus $lall $lgit                     > $lnew
+
+    cat $lnew >&2
 }
 
 send_nogit () (
@@ -36,7 +38,9 @@ send_nogit () (
     rsync --files-from=$lnew "$h":\""$d"\"    .
 )
 
+
 send_all () (
+    init_tape
     b=`basename "$d"`
     rsync -r                 "$h":\""$d"\"/   "$b"
 )
