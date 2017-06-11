@@ -130,3 +130,18 @@ fi
 # r0 falcon $t ^
 # (cd /tmp; r0 falcon $t vv; cd r0 ; ls Makefile)  > r0.out.txt
 #
+
+#### copy A via git; and B as a parameter
+# TEST: r0.11
+# h=falcon
+# t=r0.$$; d=/tmp/$t; mkdir $d
+# (
+#   cd $d
+#   git init --quiet .
+#   > A
+#   git add A
+#   > B
+#   r0 falcon /tmp/$t ^ B
+#   r0 falcon /tmp/$t ls
+# ) > git.out.txt
+#
