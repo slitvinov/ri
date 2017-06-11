@@ -11,11 +11,11 @@ cmd0 () {  r.cmd "$h" "$d"      "$@"; }
 cmd  () { if test $# != 0; then cmd0 "$@"; fi }
 rm0  () { r.rm "$h" "$d"; } # remove
 
-if   test "$c" = ^ ; then shift; l2r "$@"; cmd "$@"
-elif test "$c" = ^^; then shift; l2r "$@"; cmd "$@"
-elif test "$c" =  v; then shift; cmd "$@"; r2l "$@"
-elif test "$c" = vv; then shift; cmd "$@"; r2l "$@"
-elif test "$c" =  -; then shift; rm0;
+if   test "$c" = ^ ; then shift; l2r "$@"
+elif test "$c" = ^^; then shift; l2r "$@"
+elif test "$c" =  v; then shift; r2l "$@"
+elif test "$c" = vv; then shift; r2l "$@"
+elif test "$c" =  -; then shift; rm0
 elif test "$c" =  !; then shift; cmd "$@"
 else                             cmd "$@"
 fi

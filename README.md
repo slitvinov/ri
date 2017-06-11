@@ -8,8 +8,8 @@ locally.
 
 Usage:
 
-    r0 [host] [path] [code] [commands]...
-	r         [path] [code] [commands]...
+    r0 [host] [path] [commands]...
+	r         [path] [code]
 
 `r` is a wrapper for `r0`:
 
@@ -34,10 +34,6 @@ You should be in the directory "under" git root.
 copy all files "under git" to `daint:$SCRATCH/preved`
 
 	r preved ^
-
-copy and execute command
-
-	r preved ^ echo 42
 
 run command remotely. No copying
 
