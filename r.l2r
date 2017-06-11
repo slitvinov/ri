@@ -5,7 +5,9 @@
 # [h]ost; remote [d]ir
 h=$1; shift
 d=$1; shift
-All=0;  if test "$1" = ^^; then  All=1; shift; fi
+
+All=0; if test "$1" = ^^; then  All=1; fi
+shift
 
 send_ini () {
     ssh "$h" mkdir -p -- \""$d"\"
@@ -17,15 +19,15 @@ tape_ini () {
     trap 'rm -f $t' 0 1 2 3 15
 }
 
-pack () { # list of files
+pack () ( # list also files provided as arguments
     git ls-files
-    
-}
+    for f in "$@"; do printf '%s\n' "$p""$f"; done
+)
 
 send_git () (
     send_ini
     tape_ini
-    pack      > $t
+    pack "$@" > $t
     rsync --files-from=$t .  "$h":\""$d"\"
 )
 
@@ -35,4 +37,4 @@ send_all () (
 )
 
 ask_git # sets `r'
-if test $All = 1; then send_all; else send_git; fi
+if test $All = 1; then send_all; else send_git "$@"; fi
