@@ -5,7 +5,8 @@
 # [h]ost; remote [d]ir
 h=$1; shift
 d=$1; shift
-All=0;  if test "$1" = vv; then  All=1; shift; fi
+All=0   ;if test "$1" = vv; then    All=1;    fi;   shift
+Regexp= ;if test   $# =  1; then Regexp="$1"; fi;   shift
 
 minus () { comm -23 "$1" "$2"; } # lines in $1 minus lines in $2
 cmd   () { ssh "$h" cd \""$d"\" '&&' "$@"; } # remote command from `$r'
@@ -17,7 +18,6 @@ tape_ini() {
 
 ls_git ()  { git ls-files; }
 ls_local() { cmd find . -type f ; }
-
 
 pack () {
     ask_git # sets `r'
