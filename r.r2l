@@ -37,7 +37,7 @@ send_nogit () (
 )
 
 send_all () (
-    ini_tape
+    tape_ini
     ls_remote | sed 's,^[.][/],,g' | sort > $lnew
     cat $lnew >&2
     rsync --files-from=$lnew "$h":\""$d"\"    .
