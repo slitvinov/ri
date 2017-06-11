@@ -8,8 +8,9 @@ locally.
 
 Usage:
 
-    r0 [host] [path] [commands]...
+    r0 [host] [path]        [commands]...
 	r         [path] [code]
+	r         [path]     vv [regexp]...
 
 `r` is a wrapper for `r0`:
 
