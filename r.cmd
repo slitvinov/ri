@@ -11,7 +11,7 @@ d=$1; shift
 ask_git
 
 # -tt to kill after disconnect
-ssh -tt "$h" << !!!
+ssh -T "$h" << !!!
 cd "$d/$p"
-$*
+$@
 !!!
