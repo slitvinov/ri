@@ -37,7 +37,8 @@ fi
 #   git init --quiet .
 #   echo 42 > A
 #   git add A
-#   r0 falcon /tmp/$t ^ 'ls -a; cat A'
+#   r0 falcon /tmp/$t ^
+#   r0 falcon /tmp/$t ! 'ls -a; cat A'
 # ) > git.out.txt
 
 # TEST: r0.4
@@ -48,7 +49,8 @@ fi
 #   git init --quiet .
 #   echo 42 > A
 #   git add A
-#   r0 falcon /tmp/$t ^^ 'ls -a; cat A'
+#   r0 falcon /tmp/$t ^^
+#   r0 falcon /tmp/$t     'ls -a; cat A'
 # ) > git.out.txt
 #
 
@@ -63,7 +65,8 @@ fi
 #   echo 52 > d/A
 #   git add A d/A
 #   cd d
-#   r0 falcon /tmp/$t ^ 'ls -a; cat A ../A'
+#   r0 falcon /tmp/$t ^
+#   r0 falcon /tmp/$t   'ls -a; cat A ../A'
 # ) > git.out.txt
 #
 
@@ -75,7 +78,8 @@ fi
 #   git init --quiet .
 #   echo 42 > A
 #   git add A
-#   r0 falcon /tmp/$t ^ echo 52 '>' B
+#   r0 falcon /tmp/$t ^
+#   r0 falcon /tmp/$t    echo 52 '>' B
 #   r0 falcon /tmp/$t v
 #   cat B
 # ) > git.out.txt
@@ -89,7 +93,8 @@ fi
 #   git init --quiet .
 #   echo oldA > A
 #   git add A
-#   r0 falcon /tmp/$t ^ echo 52 '>' B
+#   r0 falcon /tmp/$t ^
+#   r0 falcon /tmp/$t   echo 52 '>' B
 #   echo newA > A
 #   r0 falcon /tmp/$t v
 #   cat A
@@ -106,7 +111,8 @@ fi
 #   git add A
 #   r0 falcon /tmp/$t ^
 #   echo newA > A
-#   r0 falcon /tmp/$t v  echo 52 '>' B
+#   r0 falcon /tmp/$t   echo 52 '>' B
+#   r0 falcon /tmp/$t v 
 #   cat A B
 # ) > git.out.txt
 #
