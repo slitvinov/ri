@@ -10,17 +10,21 @@ All=0;  if test "$1" = vv; then  All=1; shift; fi
 minus () { comm -23 "$1" "$2"; } # lines in $1 minus lines in $2
 cmd   () { ssh "$h" cd \""$d"\" '&&' "$@"; } # remote command from `$r'
 
-pack_ini() {
+tape_ini() {
     lall=/tmp/$$.all lgit=/tmp/$$.git lnew=/tmp/$$.new # file lists
     trap 'rm -f $lall $lgit $lnew' 0 1 2 3 15
 }
 
+ls_git ()  { git ls-files; }
+ls_local() { cmd find . -type f ; }
+
+
 pack () {
     ask_git # sets `r'
     cd "$r"
-    pack_ini
-    git ls-files                            | sort > $lgit
-    cmd find . -type f | sed 's,^[.][/],,g' | sort > $lall
+    tape_ini
+    ls_git                        | sort > $lgit
+    ls_local | sed 's,^[.][/],,g' | sort > $lall
     minus $lall $lgit                              > $lnew
 }
 
