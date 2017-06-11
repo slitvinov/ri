@@ -16,15 +16,18 @@ tape_ini() {
     trap 'rm -f $lall $lgit $lnew' 0 1 2 3 15
 }
 
-ls_git ()  { git ls-files; }
-ls_local() { cmd find . -type f ; }
+ls_git ()  { git ls-files; } # list files
+
+ls_remote0() { cmd find . -type f; }
+ls_remote1() { cmd find . -type f | awk '/'"$Regexp"'/'; }
+ls_remote()  { if test -z "$Regexp"; then ls_remote0; else ls_remote1; fi ; }
 
 pack () {
     ask_git # sets `r'
     cd "$r"
     tape_ini
     ls_git                        | sort > $lgit
-    ls_local | sed 's,^[.][/],,g' | sort > $lall
+    ls_remote | sed 's,^[.][/],,g' | sort > $lall
     minus $lall $lgit                              > $lnew
 }
 
